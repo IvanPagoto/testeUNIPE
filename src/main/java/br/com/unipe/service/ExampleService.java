@@ -8,11 +8,21 @@ import org.springframework.stereotype.Service;
 
 import br.com.hermes.hermeswp.util.LoggerPadrao;
 import br.com.unipe.domain.Example;
+import io.sentry.Sentry;
+import io.sentry.SentryClient;
+import io.sentry.SentryClientFactory;
 
 @Service
 public class ExampleService {
-
+	
 	private List<Example> lista = new ArrayList<Example>();
+	private static SentryClient sentry;
+	
+	static {
+		   Sentry.init("https://a0b72c253cc848d4aef83050ea8143b4@sentry.io/1238321");        
+	       sentry = SentryClientFactory.sentryClient();
+	}
+	
 	
 
 	public Example cadastrar(Example example) throws Exception {
@@ -20,10 +30,11 @@ public class ExampleService {
 		if(!containsName(example.getNome())) {
 			lista.add(example);
 			LoggerPadrao.info("Efetuou Cadastro");
+			sentry.sendMessage("Efetuou Cadastro");
 			return example;
 		}
 		
-		throw new Exception("Example com nome " + example.getNome() + " já existe");
+		throw new Exception("Example com nome " + example.getNome() + " já existe");		
 		
 	}
 	
