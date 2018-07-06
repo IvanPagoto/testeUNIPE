@@ -23,37 +23,44 @@ public class LoggerPadrao {
 	
 	public static void info(String mensagem, Object ... args){
 		logInfo.info(mensagem, args);
-		sentry.sendMessage(mensagem + "Teste");
+		//sentry.sendMessage(mensagem);
+		Sentry.capture(mensagem);		
 	}
 	
 	public static void info(String mensagem){
 		logInfo.info(mensagem);
-		sentry.sendMessage(mensagem);
+		//sentry.sendMessage(mensagem);
+		Sentry.capture(mensagem);
 	}
 	
 	public static void transacao(String mensagem){
 		logTransacao.info("loggerTransacao - "+mensagem);
-		sentry.sendMessage(mensagem);
+		//sentry.sendMessage(mensagem);
+		Sentry.capture(mensagem);
 	}
 	
 	public static void debug(String mensagem, Object ... args){
 		logDebug.debug(mensagem, args);
-		sentry.sendMessage(mensagem);
+		//sentry.sendMessage(mensagem);
+		Sentry.capture(mensagem);
 	}
 	
 	public static void debug(String mensagem, long time){
 		logDebug.debug(mensagem+ " - "+(System.currentTimeMillis()-time)+" ms");
-		sentry.sendMessage(mensagem + "Time: " + String.valueOf(time));
+		//sentry.sendMessage(mensagem + "Time: " + String.valueOf(time));
+		Sentry.capture(mensagem);
 	}
 		
 	public static void error(String mensagem, Exception e) {
 		logErro.error(mensagem, e);
-		sentry.sendException(e);
+		//sentry.sendException(e);
+		Sentry.capture(e);
 	}
 
 	public static void error(String string) {
 		logErro.error(string);
-		sentry.sendMessage(string);
+		//sentry.sendMessage(string);
+		Sentry.capture(string);
 	}
 	
 	public static void info(String mensagem, long time, Object ... args){
@@ -74,6 +81,7 @@ public class LoggerPadrao {
 
 	public static void error(String mensagem, Exception e, long time) {
 		logErro.error(mensagem+" - "+(System.currentTimeMillis()-time)+" ms", e);
+		Sentry.capture(e);
 	}
 
 	public static void error(String string, long time) {

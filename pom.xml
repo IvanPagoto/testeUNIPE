@@ -93,9 +93,9 @@
 		</dependency>
 		
 		<dependency>
-    <groupId>io.sentry</groupId>
-    <artifactId>sentry</artifactId>
-    <version>1.7.5</version>
+		    <groupId>io.sentry</groupId>
+		    <artifactId>sentry</artifactId>
+		    <version>1.7.5</version>
 		</dependency>
 
 	</dependencies>

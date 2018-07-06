@@ -5,32 +5,21 @@ import java.util.List;
 
 //import org.hibernate.validator.internal.util.logging.Log_.logger;
 import org.springframework.stereotype.Service;
-
 import br.com.hermes.hermeswp.util.LoggerPadrao;
 import br.com.unipe.domain.Example;
-import io.sentry.Sentry;
-import io.sentry.SentryClient;
-import io.sentry.SentryClientFactory;
+
 
 @Service
 public class ExampleService {
 	
 	private List<Example> lista = new ArrayList<Example>();
-	private static SentryClient sentry;
-	
-	static {
-		   Sentry.init("https://a0b72c253cc848d4aef83050ea8143b4@sentry.io/1238321");        
-	       sentry = SentryClientFactory.sentryClient();
-	}
-	
-	
+
 
 	public Example cadastrar(Example example) throws Exception {
 		
 		if(!containsName(example.getNome())) {
 			lista.add(example);
-			LoggerPadrao.info("Efetuou Cadastro");
-			sentry.sendMessage("Efetuou Cadastro");
+			LoggerPadrao.info("Efetuou Cadastro");			
 			return example;
 		}
 		
